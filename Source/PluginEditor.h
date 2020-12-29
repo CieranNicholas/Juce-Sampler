@@ -14,7 +14,8 @@
 //==============================================================================
 /**
 */
-class FirstSamplerAudioProcessorEditor  : public juce::AudioProcessorEditor, public juce::FileDragAndDropTarget
+class FirstSamplerAudioProcessorEditor  : public juce::AudioProcessorEditor, 
+                                          public juce::FileDragAndDropTarget
                                             
 {
 public:
@@ -25,8 +26,8 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
 
-    bool FileDragAndDropTarget::isInterestedInFileDrag(const juce::StringArray& files);
-    void FileDragAndDropTarget::filesDropped(const juce::StringArray & files, int x, int y);
+    bool isInterestedInFileDrag(const juce::StringArray& files) override;
+    void filesDropped(const juce::StringArray& files, int x, int y) override;
     
 
 
