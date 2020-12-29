@@ -13,9 +13,6 @@
 FirstSamplerAudioProcessorEditor::FirstSamplerAudioProcessorEditor (FirstSamplerAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    mLoadButton.onClick = [&]() {audioProcessor.loadFile(); };
-    addAndMakeVisible(mLoadButton);
-
     setSize (600, 200);
 }
 
@@ -36,7 +33,7 @@ void FirstSamplerAudioProcessorEditor::paint (juce::Graphics& g)
         
         auto waveForm = audioProcessor.getWaveForm();
         auto ratio = waveForm.getNumSamples() / getWidth();
-        auto buffer = waveForm.getReadPointer (1);
+        auto buffer = waveForm.getReadPointer (0);
 
         //Scale audio file to window x axis
         for (int sample = 0; sample < waveForm.getNumSamples(); sample += ratio)
@@ -49,7 +46,7 @@ void FirstSamplerAudioProcessorEditor::paint (juce::Graphics& g)
         //scale audio file to window y axis
         for (int sample = 0; sample < mAudioPoints.size(); ++sample)
         {
-            auto point = juce::jmap<float>(mAudioPoints[sample], -1.0f, 1.0f, 200, 0.0f);
+            auto point = juce::jmap<float>(mAudioPoints[sample], -1.0f, 1.0f, 200.0f, 0.0f);
             p.lineTo(sample, point);
         }
 
